@@ -1,0 +1,6 @@
+# Output compilato Eclipse
+/bin/
+
+# File temporanei del sistema operativo
+Thumbs.db
+.DS_Store
