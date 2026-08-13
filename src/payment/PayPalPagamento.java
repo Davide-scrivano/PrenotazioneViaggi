@@ -2,19 +2,18 @@ package payment;
 
 public class PayPalPagamento implements Pagamento {
 
-    private String email;
-    private String password;
-    private float importo;
+    private final String email;
+    private final String password;
+    private final float importo;
 
-    public PayPalPagamento(String email, String password, float importo) {
+    PayPalPagamento(String email, String password, float importo) {
         this.email = email;
         this.password = password;
         this.importo = importo;
     }
 
     @Override
-    public boolean metodoPagamento() {
-        // verifica base: email valida (contiene @) e password non vuota
+    public boolean elaboraPagamento() {
         return email != null && email.contains("@")
                 && password != null && !password.isEmpty();
     }
@@ -22,5 +21,10 @@ public class PayPalPagamento implements Pagamento {
     @Override
     public float costo() {
         return importo;
+    }
+
+    @Override
+    public String descrizione() {
+        return "PayPal";
     }
 }

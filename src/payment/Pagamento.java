@@ -2,7 +2,9 @@ package payment;
 
 public interface Pagamento {
 
-    boolean metodoPagamento();
+    boolean elaboraPagamento();
 
     float costo();
+
+    String descrizione();
 }

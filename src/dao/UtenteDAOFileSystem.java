@@ -10,16 +10,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 import exceptions.PersistenzaException;
+import model.TipoUtente;
 import model.Utente;
 
-/**
- * Versione "file system" del DAO: salva gli utenti in un semplice file
- * di testo (un utente per riga, campi separati da ';').
- * Usata nella modalita' full-version quando non si vuole/puo' usare un DBMS.
- */
 public class UtenteDAOFileSystem implements UtenteDAO {
 
-    private String percorsoFile;
+    private static final int NUMERO_CAMPI = 7;
+    private static final String SEPARATORE = ";";
+
+    private final String percorsoFile;
 
     public UtenteDAOFileSystem(String percorsoFile) {
         this.percorsoFile = percorsoFile;
@@ -28,19 +27,24 @@ public class UtenteDAOFileSystem implements UtenteDAO {
     @Override
     public void salva(List<Utente> utenti) throws PersistenzaException {
         File file = new File(percorsoFile);
-        File cartella = file.getParentFile();
-        if (cartella != null && !cartella.exists()) {
-            cartella.mkdirs();
-        }
+        preparaCartella(file);
 
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(file))) {
             for (Utente u : utenti) {
-                writer.write(u.getId() + ";" + u.getNickname() + ";" + u.getName() + ";"
-                        + u.getSurname() + ";" + u.getEmail() + ";" + u.getPassword());
+                writer.write(u.getId() + SEPARATORE + u.getNickname() + SEPARATORE + u.getName() + SEPARATORE
+                        + u.getSurname() + SEPARATORE + u.getEmail() + SEPARATORE + u.getPassword() + SEPARATORE
+                        + u.getTipo().name());
                 writer.newLine();
             }
         } catch (IOException e) {
-            throw new PersistenzaException("Impossibile salvare gli utenti su file: " + e.getMessage());
+            throw new PersistenzaException("Impossibile salvare gli utenti su file: " + e.getMessage(), e);
+        }
+    }
+
+    private void preparaCartella(File file) throws PersistenzaException {
+        File cartella = file.getParentFile();
+        if (cartella != null && !cartella.exists() && !cartella.mkdirs()) {
+            throw new PersistenzaException("Impossibile creare la cartella " + cartella.getPath());
         }
     }
 
@@ -50,25 +54,36 @@ public class UtenteDAOFileSystem implements UtenteDAO {
         File file = new File(percorsoFile);
 
         if (!file.exists()) {
-            // Nessun file precedente: non e' un errore, semplicemente non ci sono ancora dati.
             return utenti;
         }
 
         try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
             String riga;
             while ((riga = reader.readLine()) != null) {
-                if (riga.isEmpty()) {
-                    continue;
-                }
-                String[] campi = riga.split(";", -1);
-                if (campi.length == 6) {
-                    int id = Integer.parseInt(campi[0]);
-                    utenti.add(new Utente(id, campi[1], campi[2], campi[3], campi[4], campi[5]));
+                Utente utente = leggiRiga(riga);
+                if (utente != null) {
+                    utenti.add(utente);
                 }
             }
         } catch (IOException | NumberFormatException e) {
-            throw new PersistenzaException("Impossibile leggere gli utenti dal file: " + e.getMessage());
+            throw new PersistenzaException("Impossibile leggere gli utenti dal file: " + e.getMessage(), e);
         }
         return utenti;
+    }
+
+    private Utente leggiRiga(String riga) {
+        if (riga.isEmpty()) {
+            return null;
+        }
+        String[] campi = riga.split(SEPARATORE, -1);
+        if (campi.length != NUMERO_CAMPI) {
+            return null;
+        }
+        try {
+            return new Utente(Integer.parseInt(campi[0]), campi[1], campi[2], campi[3], campi[4], campi[5],
+                    TipoUtente.daCodice(campi[6]));
+        } catch (NumberFormatException e) {
+            return null;
+        }
     }
 }

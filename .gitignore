@@ -1,6 +1,16 @@
 # Output compilato Eclipse
 /bin/
 
+# File generati dai test
+/test-output/
+
 # File temporanei del sistema operativo
 Thumbs.db
 .DS_Store
+
+# Cache dello scanner SonarQube/SonarCloud
+/.scannerwork/
+
+# Backup/archivi locali del codice
+/src.zip
+/test.zip

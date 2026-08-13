@@ -10,30 +10,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 import exceptions.PersistenzaException;
+import model.TipoUtente;
 import model.Utente;
 
-/**
- * Versione "DBMS" del DAO: salva/carica gli utenti da un database MySQL
- * tramite JDBC. Si appoggia alla tabella:
- *
- * CREATE TABLE utenti (
- *   id INT PRIMARY KEY,
- *   nickname VARCHAR(50),
- *   name VARCHAR(50),
- *   surname VARCHAR(50),
- *   email VARCHAR(100),
- *   password VARCHAR(50)
- * );
- *
- * Richiede il driver JDBC di MySQL nel classpath del progetto per
- * funzionare a runtime (per la sola compilazione non serve, perche'
- * si usano solo le classi standard di java.sql).
- */
 public class UtenteDAOMySQL implements UtenteDAO {
 
-    private String url;
-    private String username;
-    private String password;
+    private static final String COLONNE = "id, nickname, name, surname, email, password, tipo";
+
+    private final String url;
+    private final String username;
+    private final String password;
 
     public UtenteDAOMySQL(String url, String username, String password) {
         this.url = url;
@@ -43,11 +29,21 @@ public class UtenteDAOMySQL implements UtenteDAO {
 
     @Override
     public void salva(List<Utente> utenti) throws PersistenzaException {
-        String sql = "REPLACE INTO utenti (id, nickname, name, surname, email, password) VALUES (?, ?, ?, ?, ?, ?)";
+        try (Connection conn = DriverManager.getConnection(url, username, password)) {
+            conn.setAutoCommit(false);
+            riscriviTabella(conn, utenti);
+        } catch (SQLException e) {
+            throw new PersistenzaException("Impossibile salvare gli utenti sul database: " + e.getMessage(), e);
+        }
+    }
 
-        try (Connection conn = DriverManager.getConnection(url, username, password);
+    private void riscriviTabella(Connection conn, List<Utente> utenti) throws SQLException {
+        String sql = "INSERT INTO utenti (" + COLONNE + ") VALUES (?, ?, ?, ?, ?, ?, ?)";
+
+        try (Statement pulizia = conn.createStatement();
                 PreparedStatement stmt = conn.prepareStatement(sql)) {
 
+            pulizia.executeUpdate("DELETE FROM utenti");
             for (Utente u : utenti) {
                 stmt.setInt(1, u.getId());
                 stmt.setString(2, u.getNickname());
@@ -55,17 +51,21 @@ public class UtenteDAOMySQL implements UtenteDAO {
                 stmt.setString(4, u.getSurname());
                 stmt.setString(5, u.getEmail());
                 stmt.setString(6, u.getPassword());
-                stmt.executeUpdate();
+                stmt.setString(7, u.getTipo().name());
+                stmt.addBatch();
             }
+            stmt.executeBatch();
+            conn.commit();
         } catch (SQLException e) {
-            throw new PersistenzaException("Impossibile salvare gli utenti sul database: " + e.getMessage());
+            conn.rollback();
+            throw e;
         }
     }
 
     @Override
     public List<Utente> carica() throws PersistenzaException {
         List<Utente> utenti = new ArrayList<>();
-        String sql = "SELECT id, nickname, name, surname, email, password FROM utenti";
+        String sql = "SELECT " + COLONNE + " FROM utenti";
 
         try (Connection conn = DriverManager.getConnection(url, username, password);
                 Statement stmt = conn.createStatement();
@@ -78,10 +78,11 @@ public class UtenteDAOMySQL implements UtenteDAO {
                         rs.getString("name"),
                         rs.getString("surname"),
                         rs.getString("email"),
-                        rs.getString("password")));
+                        rs.getString("password"),
+                        TipoUtente.daCodice(rs.getString("tipo"))));
             }
         } catch (SQLException e) {
-            throw new PersistenzaException("Impossibile leggere gli utenti dal database: " + e.getMessage());
+            throw new PersistenzaException("Impossibile leggere gli utenti dal database: " + e.getMessage(), e);
         }
         return utenti;
     }

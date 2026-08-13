@@ -2,8 +2,8 @@ package payment;
 
 public class AdapterPagamento implements Pagamento {
 
-    private PagamentoEsternoGateway externalGateway;
-    private float importo;
+    private final PagamentoEsternoGateway externalGateway;
+    private final float importo;
 
     public AdapterPagamento(PagamentoEsternoGateway gateway, float importo) {
         this.externalGateway = gateway;
@@ -11,8 +11,7 @@ public class AdapterPagamento implements Pagamento {
     }
 
     @Override
-    public boolean metodoPagamento() {
-        
+    public boolean elaboraPagamento() {
         boolean autorizzato = externalGateway.autorizza(importo);
         if (!autorizzato) {
             return false;
@@ -23,5 +22,10 @@ public class AdapterPagamento implements Pagamento {
     @Override
     public float costo() {
         return importo;
+    }
+
+    @Override
+    public String descrizione() {
+        return "Gateway esterno";
     }
 }
