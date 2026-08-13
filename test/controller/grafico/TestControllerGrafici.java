@@ -32,8 +32,6 @@ import model.Pacchetto;
  * sempre e solo Bean, mai entita' del Model, e le eccezioni di business
  * non arrivano mai fino alla Boundary perche' vengono tradotte qui in un
  * esito con un messaggio.
- *
- * Autore: Davide Scrivano
  */
 class TestControllerGrafici {
 

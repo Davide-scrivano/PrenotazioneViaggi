@@ -8,8 +8,6 @@ import static org.junit.jupiter.api.Assertions.*;
  * astratto Pagamento: e' lei a decidere quale classe concreta creare, e
  * questo e' cio' che la rende una Factory e non un contenitore di
  * costruttori. I test verificano proprio quella responsabilita'.
- *
- * Autore: Davide Scrivano
  */
 class TestPagamentoFactory {
 

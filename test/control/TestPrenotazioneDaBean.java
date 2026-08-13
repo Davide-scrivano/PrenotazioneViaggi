@@ -22,8 +22,6 @@ import model.Utente;
  * realta' e' la Boundary), ma solo un id, del testo e il metodo di
  * pagamento scelto. Pacchetto, Utente-partecipante e Pagamento nascono
  * tutti dentro il Controller Applicativo.
- *
- * Autore: Davide Scrivano
  */
 class TestPrenotazioneDaBean {
 

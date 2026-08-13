@@ -27,7 +27,6 @@ import model.Utente;
 import payment.Pagamento;
 import payment.PagamentoRegistrato;
 
-// Autore: Davide Scrivano
 class TestPrenotazioneDAOFileSystem {
 
     private static final Logger LOGGER = Logger.getLogger(TestPrenotazioneDAOFileSystem.class.getName());

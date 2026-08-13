@@ -11,7 +11,6 @@ import exceptions.CredenzialiNonValideException;
 import exceptions.RegistrazioneNonConsentitaException;
 import model.Utente;
 
-// Autore: Davide Scrivano
 class TestGestoreUtenti {
 
     private static final String NICKNAME_MARIO = "mariorossi";

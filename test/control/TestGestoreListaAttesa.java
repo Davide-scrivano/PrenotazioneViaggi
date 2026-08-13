@@ -19,7 +19,6 @@ import model.Prenotazione;
 import model.RichiestaListaAttesa;
 import model.Utente;
 
-// Autore: Davide Scrivano
 class TestGestoreListaAttesa {
 
     private static final String COGNOME = "Cognome";

@@ -27,8 +27,6 @@ import model.Utente;
  * Il vincolo di preavviso (annulla/modifica) confronta le date con
  * System.currentTimeMillis(), quindi le date dei test sono relative ad
  * "adesso" e non timestamp arbitrari.
- *
- * Autore: Davide Scrivano
  */
 class TestGestorePrenotazioni {
 

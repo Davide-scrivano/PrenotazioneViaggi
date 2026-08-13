@@ -17,7 +17,6 @@ import exceptions.PersistenzaException;
 import model.TipoUtente;
 import model.Utente;
 
-// Autore: Davide Scrivano
 class TestUtenteDAOFileSystem {
 
     private static final Logger LOGGER = Logger.getLogger(TestUtenteDAOFileSystem.class.getName());

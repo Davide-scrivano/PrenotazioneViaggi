@@ -18,7 +18,6 @@ import model.DettagliOfferta;
 import model.Pacchetto;
 import model.TipoVolo;
 
-// Autore: Davide Scrivano
 class TestPacchettoDAOFileSystem {
 
     private static final Logger LOGGER = Logger.getLogger(TestPacchettoDAOFileSystem.class.getName());

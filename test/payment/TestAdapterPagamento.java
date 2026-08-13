@@ -7,8 +7,6 @@ import static org.junit.jupiter.api.Assertions.*;
  * L'Adapter traduce l'unica operazione attesa dal Target (elaboraPagamento)
  * nella sequenza di due chiamate offerta dall'Adaptee (autorizza, poi
  * addebita).
- *
- * Autore: Davide Scrivano
  */
 class TestAdapterPagamento {
 

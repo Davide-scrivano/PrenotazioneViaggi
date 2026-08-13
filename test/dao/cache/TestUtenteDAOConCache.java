@@ -11,7 +11,6 @@ import dao.UtenteDAO;
 import exceptions.PersistenzaException;
 import model.Utente;
 
-// Autore: Davide Scrivano
 class TestUtenteDAOConCache {
 
     /**

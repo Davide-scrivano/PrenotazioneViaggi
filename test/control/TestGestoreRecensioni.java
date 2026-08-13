@@ -13,7 +13,6 @@ import model.Prenotazione;
 import model.Recensione;
 import model.Utente;
 
-// Autore: Davide Scrivano
 class TestGestoreRecensioni {
 
     private static final String COGNOME = "Cognome";
