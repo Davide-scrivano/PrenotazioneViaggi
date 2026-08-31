@@ -1,0 +1,94 @@
+.root {
+    -fx-background-color: #f4f6f8;
+    -fx-font-family: "Segoe UI";
+    -fx-font-size: 13px;
+}
+
+.sfondo {
+    -fx-background-image: url("sfondo.jpg");
+    -fx-background-size: cover;
+    -fx-background-position: center center;
+    -fx-background-repeat: no-repeat;
+}
+
+.pannello {
+    -fx-background-color: rgba(255, 255, 255, 0.94);
+    -fx-background-radius: 14;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.28), 20, 0.2, 0, 6);
+}
+
+.titolo {
+    -fx-font-size: 20px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #2c3e50;
+}
+
+.sottotitolo {
+    -fx-font-size: 15px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #2c3e50;
+}
+
+.text-field, .password-field {
+    -fx-background-color: white;
+    -fx-background-radius: 4;
+    -fx-border-radius: 4;
+    -fx-border-color: #cfd8dc;
+    -fx-padding: 8;
+    -fx-prompt-text-fill: #9aa5ab;
+}
+
+.text-field:focused, .password-field:focused, .text-area:focused {
+    -fx-prompt-text-fill: #b0bcc4;
+}
+
+.button {
+    -fx-background-color: #3f51b5;
+    -fx-text-fill: white;
+    -fx-background-radius: 6;
+    -fx-padding: 8 18;
+    -fx-cursor: hand;
+    -fx-font-weight: bold;
+}
+
+.button:hover {
+    -fx-background-color: #303f9f;
+}
+
+.button-secondario {
+    -fx-background-color: #cfd8dc;
+    -fx-text-fill: #2c3e50;
+}
+
+.button-secondario:hover {
+    -fx-background-color: #b0bec5;
+}
+
+.button-pericolo {
+    -fx-background-color: #e53935;
+}
+
+.button-pericolo:hover {
+    -fx-background-color: #c62828;
+}
+
+.scroll-pane {
+    -fx-background-color: transparent;
+}
+
+.scroll-pane > .viewport {
+    -fx-background-color: transparent;
+}
+
+.scroll-pane.pannello {
+    -fx-background-color: rgba(255, 255, 255, 0.94);
+    -fx-padding: 25;
+}
+
+.riga-elemento {
+    -fx-background-color: white;
+    -fx-background-radius: 6;
+    -fx-padding: 10;
+    -fx-border-color: #e0e0e0;
+    -fx-border-radius: 6;
+}
