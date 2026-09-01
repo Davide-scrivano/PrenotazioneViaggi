@@ -13,19 +13,18 @@ public class PoolConnessioni {
 
     private static final Logger LOGGER = Logger.getLogger(PoolConnessioni.class.getName());
 
-    private static PoolConnessioni istanza = null;
-
     private Connection connessione;
 
     private PoolConnessioni() {
         Runtime.getRuntime().addShutdownHook(new Thread(this::chiudi));
     }
 
-    public static synchronized PoolConnessioni getSingletonInstance() {
-        if (istanza == null) {
-            istanza = new PoolConnessioni();
-        }
-        return istanza;
+    private static class Contenitore {
+        private static final PoolConnessioni ISTANZA = new PoolConnessioni();
+    }
+
+    public static final PoolConnessioni getSingletonInstance() {
+        return Contenitore.ISTANZA;
     }
 
     public synchronized Connection getConnessione() throws PersistenzaException {

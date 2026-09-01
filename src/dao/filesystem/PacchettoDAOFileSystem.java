@@ -77,8 +77,8 @@ public class PacchettoDAOFileSystem implements PacchettoDAO {
     private void scrivi(DataOutputStream out, Pacchetto pacchetto) throws IOException {
         out.writeInt(pacchetto.getId());
         out.writeUTF(pacchetto.getDestinazione());
-        out.writeLong(pacchetto.getDisponibilita().getDataPartenza());
-        out.writeLong(pacchetto.getDisponibilita().getDataRientro());
+        out.writeLong(pacchetto.getDataPartenzaDisponibilita());
+        out.writeLong(pacchetto.getDataRientroDisponibilita());
         out.writeFloat(pacchetto.getPrezzoSettimanale());
         out.writeInt(pacchetto.getPostiDisponibili());
         out.writeInt(pacchetto.getStelleHotel());

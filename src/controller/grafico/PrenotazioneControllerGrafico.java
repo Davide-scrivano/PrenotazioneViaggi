@@ -75,6 +75,7 @@ public class PrenotazioneControllerGrafico {
             esito.setSuccesso(true);
         } catch (ApplicazioneException e) {
             esito.setMessaggio(TraduttoreErrori.perUtente(e));
+            esito.setPostiInsufficienti(TraduttoreErrori.postiInsufficienti(e));
         }
         return esito;
     }
@@ -93,6 +94,7 @@ public class PrenotazioneControllerGrafico {
             esito.setSuccesso(true);
         } catch (ApplicazioneException e) {
             esito.setMessaggio(TraduttoreErrori.perUtente(e));
+            esito.setPostiInsufficienti(TraduttoreErrori.postiInsufficienti(e));
         }
         return esito;
     }

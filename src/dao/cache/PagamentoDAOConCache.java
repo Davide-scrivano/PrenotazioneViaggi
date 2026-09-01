@@ -1,22 +1,21 @@
-package dao.decorator;
+package dao.cache;
 
 import java.util.HashMap;
 import java.util.Map;
 
 import dao.PagamentoDAO;
-import dao.cache.MemoriaCentrale;
-import dao.cache.OsservatoreCache;
 import exceptions.PersistenzaException;
 import model.Pagamento;
 
-public final class PagamentoDAOConCache extends PagamentoDAODecorator implements OsservatoreCache {
+public final class PagamentoDAOConCache implements PagamentoDAO, OsservatoreCache {
 
+    private final PagamentoDAO componente;
     private final MemoriaCentrale soggetto = MemoriaCentrale.getSingletonInstance();
 
     private final Map<Integer, Pagamento> pagamenti = new HashMap<>();
 
     public PagamentoDAOConCache(PagamentoDAO componente) {
-        super(componente);
+        this.componente = componente;
         soggetto.registraOsservatore(this);
     }
 
@@ -26,8 +25,13 @@ public final class PagamentoDAOConCache extends PagamentoDAODecorator implements
     }
 
     @Override
+    public int prossimoId() throws PersistenzaException {
+        return componente.prossimoId();
+    }
+
+    @Override
     public void inserisci(Pagamento pagamento) throws PersistenzaException {
-        super.inserisci(pagamento);
+        componente.inserisci(pagamento);
         soggetto.datiModificati();
     }
 
@@ -35,7 +39,7 @@ public final class PagamentoDAOConCache extends PagamentoDAODecorator implements
     public Pagamento trovaPerId(int id) throws PersistenzaException {
         Pagamento pagamento = pagamenti.get(id);
         if (pagamento == null) {
-            pagamento = super.trovaPerId(id);
+            pagamento = componente.trovaPerId(id);
             if (pagamento != null) {
                 pagamenti.put(pagamento.getId(), pagamento);
             }

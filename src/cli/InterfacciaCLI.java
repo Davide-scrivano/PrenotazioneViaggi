@@ -183,7 +183,7 @@ public class InterfacciaCLI {
         EsitoOperazioneBean esitoDati = prenotazioneControllerGrafico.verificaDatiViaggio(dati);
         if (!esitoDati.isSuccesso()) {
             USCITA.println(esitoDati.getMessaggio());
-            if (pacchetto.postiInsufficientiPer(dati.getPartecipanti().size())) {
+            if (esitoDati.isPostiInsufficienti()) {
                 USCITA.println("Puoi iscriverti alla lista d'attesa. " + TESTO_NON_IMPLEMENTATO);
             }
             return;

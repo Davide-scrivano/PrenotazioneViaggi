@@ -20,17 +20,16 @@ public class ConfigurazioneGlobale {
     private String utenteDatabase = "root";
     private String passwordDatabase = "";
 
-    private static ConfigurazioneGlobale istanza = null;
-
     private ConfigurazioneGlobale() {
         caricaDaFile();
     }
 
-    public static synchronized ConfigurazioneGlobale getSingletonInstance() {
-        if (istanza == null) {
-            istanza = new ConfigurazioneGlobale();
-        }
-        return istanza;
+    private static class Contenitore {
+        private static final ConfigurazioneGlobale ISTANZA = new ConfigurazioneGlobale();
+    }
+
+    public static final ConfigurazioneGlobale getSingletonInstance() {
+        return Contenitore.ISTANZA;
     }
 
     private void caricaDaFile() {

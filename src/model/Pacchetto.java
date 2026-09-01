@@ -5,6 +5,7 @@ import model.valori.DurataViaggio;
 import model.valori.PeriodoViaggio;
 import model.valori.TipoVolo;
 import exceptions.PacchettoNonDisponibileException;
+import exceptions.PacchettoNonDisponibileException.Motivo;
 
 public class Pacchetto {
 
@@ -31,11 +32,11 @@ public class Pacchetto {
         if (!haPostiPer(numeroPartecipanti)) {
             throw new PacchettoNonDisponibileException("Il pacchetto \"" + destinazione
                     + "\" non ha abbastanza posti per " + numeroPartecipanti + " partecipanti: ne restano "
-                    + postiDisponibili + ".");
+                    + postiDisponibili + ".", Motivo.POSTI_INSUFFICIENTI);
         }
         if (!disponibilita.contiene(periodoRichiesto)) {
             throw new PacchettoNonDisponibileException("Le date scelte sono fuori dal periodo in cui \""
-                    + destinazione + "\" e' prenotabile.");
+                    + destinazione + "\" e' prenotabile.", Motivo.FUORI_PERIODO);
         }
     }
 
@@ -44,7 +45,9 @@ public class Pacchetto {
     }
 
     public void occupaPosti(int quantita) {
-        postiDisponibili -= quantita;
+        if (quantita > 0 && haPostiPer(quantita)) {
+            postiDisponibili -= quantita;
+        }
     }
 
     public boolean isEsaurito() {
@@ -65,6 +68,14 @@ public class Pacchetto {
 
     public PeriodoViaggio getDisponibilita() {
         return disponibilita;
+    }
+
+    public long getDataPartenzaDisponibilita() {
+        return disponibilita.getDataPartenza();
+    }
+
+    public long getDataRientroDisponibilita() {
+        return disponibilita.getDataRientro();
     }
 
     public float getPrezzoSettimanale() {

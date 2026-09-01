@@ -59,11 +59,11 @@ public class PrenotazioneDAOFileSystem implements PrenotazioneDAO {
     private void scriviRiga(Prenotazione prenotazione) throws PersistenzaException {
         try (DataOutputStream out = file.apriScrittura(true)) {
             out.writeInt(prenotazione.getId());
-            out.writeInt(prenotazione.getCliente().getId());
-            out.writeInt(prenotazione.getPacchetto().getId());
-            out.writeInt(prenotazione.getPagamento().getId());
-            out.writeLong(prenotazione.getPeriodo().getDataPartenza());
-            out.writeLong(prenotazione.getPeriodo().getDataRientro());
+            out.writeInt(prenotazione.getIdCliente());
+            out.writeInt(prenotazione.getIdPacchetto());
+            out.writeInt(prenotazione.getIdPagamento());
+            out.writeLong(prenotazione.getDataPartenzaViaggio());
+            out.writeLong(prenotazione.getDataRientroViaggio());
             out.writeLong(prenotazione.getDataPrenotazione());
         } catch (IOException e) {
             throw errore(e);

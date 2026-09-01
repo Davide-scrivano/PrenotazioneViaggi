@@ -1,6 +1,6 @@
 package payment;
 
-public class GatewayPagamentoEsterno {
+class GatewayPagamentoEsterno {
 
     private static final String ESITO_NEGATIVO = "KO";
     private static final String PREFISSO_AUTORIZZAZIONE = "AUTH-";

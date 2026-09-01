@@ -5,6 +5,7 @@ public class EsitoPreventivoBean {
     private boolean successo;
     private String messaggio;
     private float importoTotale;
+    private boolean postiInsufficienti;
 
     public boolean isSuccesso() {
         return successo;
@@ -12,6 +13,14 @@ public class EsitoPreventivoBean {
 
     public void setSuccesso(boolean successo) {
         this.successo = successo;
+    }
+
+    public boolean isPostiInsufficienti() {
+        return postiInsufficienti;
+    }
+
+    public void setPostiInsufficienti(boolean postiInsufficienti) {
+        this.postiInsufficienti = postiInsufficienti;
     }
 
     public String getMessaggio() {

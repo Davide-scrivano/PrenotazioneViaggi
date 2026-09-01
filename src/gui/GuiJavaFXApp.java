@@ -357,9 +357,10 @@ public class GuiJavaFXApp extends Application {
         mostraBlocco(bottoneListaAttesa, false);
 
         Runnable aggiornaPrezzo = () -> {
-            aggiornaPreventivo(preventivo, costruisciBeanViaggio(utente, pacchetto, selettorePartenza.getValue(),
-                    radioUnaSettimana.isSelected(), campiPerPartecipante));
-            mostraBlocco(bottoneListaAttesa, pacchetto.postiInsufficientiPer(spinnerPartecipanti.getValue()));
+            EsitoPreventivoBean esito = aggiornaPreventivo(preventivo,
+                    costruisciBeanViaggio(utente, pacchetto, selettorePartenza.getValue(),
+                            radioUnaSettimana.isSelected(), campiPerPartecipante));
+            mostraBlocco(bottoneListaAttesa, esito.isPostiInsufficienti());
         };
 
         spinnerPartecipanti.valueProperty().addListener((osservato, vecchio, nuovo) -> {
@@ -411,7 +412,7 @@ public class GuiJavaFXApp extends Application {
         return dati;
     }
 
-    private void aggiornaPreventivo(Label preventivo, PrenotazioneBean dati) {
+    private EsitoPreventivoBean aggiornaPreventivo(Label preventivo, PrenotazioneBean dati) {
         EsitoPreventivoBean esito = prenotazioneControllerGrafico.calcolaPreventivo(dati);
         if (esito.isSuccesso()) {
             preventivo.setStyle(COLORE_SUCCESSO);
@@ -420,6 +421,7 @@ public class GuiJavaFXApp extends Application {
             preventivo.setStyle(COLORE_ERRORE);
             preventivo.setText(esito.getMessaggio());
         }
+        return esito;
     }
 
     private void ricostruisciCampiPartecipanti(VBox contenitore, List<TextField[]> campiPerPartecipante, int numero) {

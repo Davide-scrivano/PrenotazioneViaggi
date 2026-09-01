@@ -69,16 +69,36 @@ public class Prenotazione {
         return cliente;
     }
 
+    public int getIdCliente() {
+        return cliente.getId();
+    }
+
     public Pacchetto getPacchetto() {
         return pacchetto;
+    }
+
+    public int getIdPacchetto() {
+        return pacchetto.getId();
     }
 
     public Pagamento getPagamento() {
         return pagamento;
     }
 
+    public int getIdPagamento() {
+        return pagamento.getId();
+    }
+
     public PeriodoViaggio getPeriodo() {
         return periodo;
+    }
+
+    public long getDataPartenzaViaggio() {
+        return periodo.getDataPartenza();
+    }
+
+    public long getDataRientroViaggio() {
+        return periodo.getDataRientro();
     }
 
     public long getDataPrenotazione() {

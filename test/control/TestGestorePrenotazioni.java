@@ -56,7 +56,7 @@ class TestGestorePrenotazioni {
 
         assertEquals(2, prenotazione.getNumeroPartecipanti());
         assertEquals("Roma", prenotazione.getDestinazione());
-        assertEquals(DatiDiProva.ID_UTENTE_MARIO, prenotazione.getCliente().getId());
+        assertEquals(DatiDiProva.ID_UTENTE_MARIO, prenotazione.getIdCliente());
     }
 
     @Test
@@ -84,7 +84,7 @@ class TestGestorePrenotazioni {
 
         PrenotazioneDAO prenotazioneDAO = daoFactory.creaPrenotazioneDAO();
         assertNotNull(prenotazioneDAO.trovaPerId(prenotazione.getId()));
-        assertNotNull(daoFactory.creaPagamentoDAO().trovaPerId(prenotazione.getPagamento().getId()));
+        assertNotNull(daoFactory.creaPagamentoDAO().trovaPerId(prenotazione.getIdPagamento()));
         assertEquals(1, daoFactory.creaPartecipanteDAO().trovaPerPrenotazione(prenotazione.getId()).size());
     }
 

@@ -6,12 +6,9 @@ import java.util.logging.Logger;
 import cli.InterfacciaCLI;
 import config.ConfigurazioneGlobale;
 import config.TipoInterfaccia;
-import config.TipoPersistenza;
 import controller.grafico.LoginControllerGrafico;
 import controller.grafico.PrenotazioneControllerGrafico;
 import dao.DAOFactory;
-import dao.database.DAOFactoryDatabase;
-import dao.filesystem.DAOFactoryFileSystem;
 import gui.GuiJavaFXApp;
 import notifica.NotificatorePrenotazioni;
 import notifica.OsservatoreEmailCliente;
@@ -27,7 +24,7 @@ public class Main {
         LOGGER.log(Level.INFO, "Avvio con persistenza {0} e interfaccia {1}.",
                 new Object[] { configurazione.getPersistenza(), configurazione.getInterfaccia() });
 
-        DAOFactory daoFactory = creaFamiglia(configurazione.getPersistenza());
+        DAOFactory daoFactory = DAOFactory.getSingletonInstance();
 
         NotificatorePrenotazioni notificatore = new NotificatorePrenotazioni();
         notificatore.registraOsservatore(new OsservatoreEmailCliente(notificatore));
@@ -42,12 +39,5 @@ public class Main {
         } else {
             GuiJavaFXApp.avvia(argomenti, loginControllerGrafico, prenotazioneControllerGrafico);
         }
-    }
-
-    private static DAOFactory creaFamiglia(TipoPersistenza persistenza) {
-        if (persistenza == TipoPersistenza.DATABASE) {
-            return new DAOFactoryDatabase();
-        }
-        return new DAOFactoryFileSystem();
     }
 }

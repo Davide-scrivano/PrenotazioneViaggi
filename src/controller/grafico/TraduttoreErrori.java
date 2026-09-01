@@ -4,6 +4,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import exceptions.ApplicazioneException;
+import exceptions.PacchettoNonDisponibileException;
 import exceptions.PersistenzaException;
 
 final class TraduttoreErrori {
@@ -22,5 +23,10 @@ final class TraduttoreErrori {
             return PROBLEMA_TECNICO;
         }
         return errore.getMessage();
+    }
+
+    static boolean postiInsufficienti(ApplicazioneException errore) {
+        return errore instanceof PacchettoNonDisponibileException pacchetto
+                && pacchetto.getMotivo() == PacchettoNonDisponibileException.Motivo.POSTI_INSUFFICIENTI;
     }
 }

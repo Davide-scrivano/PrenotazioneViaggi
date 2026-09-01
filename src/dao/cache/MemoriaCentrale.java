@@ -8,8 +8,6 @@ import model.Utente;
 
 public class MemoriaCentrale extends SoggettoCache {
 
-    private static MemoriaCentrale istanza = null;
-
     private Catalogo catalogo = null;
     private final Map<Integer, Utente> utentiPerId = new HashMap<>();
     private final Map<String, Utente> utentiPerNickname = new HashMap<>();
@@ -17,11 +15,12 @@ public class MemoriaCentrale extends SoggettoCache {
     private MemoriaCentrale() {
     }
 
-    public static synchronized MemoriaCentrale getSingletonInstance() {
-        if (istanza == null) {
-            istanza = new MemoriaCentrale();
-        }
-        return istanza;
+    private static class Contenitore {
+        private static final MemoriaCentrale ISTANZA = new MemoriaCentrale();
+    }
+
+    public static final MemoriaCentrale getSingletonInstance() {
+        return Contenitore.ISTANZA;
     }
 
     public void datiModificati() {

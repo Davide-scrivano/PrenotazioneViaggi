@@ -82,11 +82,11 @@ public class PrenotazioneDAODatabase implements PrenotazioneDAO {
     private void scriviRiga(Prenotazione prenotazione) throws PersistenzaException, SQLException {
         try (PreparedStatement comando = pool.getConnessione().prepareStatement(INSERT)) {
             comando.setInt(1, prenotazione.getId());
-            comando.setInt(2, prenotazione.getCliente().getId());
-            comando.setInt(3, prenotazione.getPacchetto().getId());
-            comando.setInt(4, prenotazione.getPagamento().getId());
-            comando.setLong(5, prenotazione.getPeriodo().getDataPartenza());
-            comando.setLong(6, prenotazione.getPeriodo().getDataRientro());
+            comando.setInt(2, prenotazione.getIdCliente());
+            comando.setInt(3, prenotazione.getIdPacchetto());
+            comando.setInt(4, prenotazione.getIdPagamento());
+            comando.setLong(5, prenotazione.getDataPartenzaViaggio());
+            comando.setLong(6, prenotazione.getDataRientroViaggio());
             comando.setLong(7, prenotazione.getDataPrenotazione());
             comando.executeUpdate();
         }

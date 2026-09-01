@@ -1,23 +1,22 @@
-package dao.decorator;
+package dao.cache;
 
 import java.util.HashMap;
 import java.util.Map;
 
 import dao.UtenteDAO;
-import dao.cache.MemoriaCentrale;
-import dao.cache.OsservatoreCache;
 import exceptions.PersistenzaException;
 import model.Utente;
 
-public final class UtenteDAOConCache extends UtenteDAODecorator implements OsservatoreCache {
+public final class UtenteDAOConCache implements UtenteDAO, OsservatoreCache {
 
+    private final UtenteDAO componente;
     private final MemoriaCentrale soggetto = MemoriaCentrale.getSingletonInstance();
 
     private final Map<Integer, Utente> utentiPerId = new HashMap<>();
     private final Map<String, Utente> utentiPerNickname = new HashMap<>();
 
     public UtenteDAOConCache(UtenteDAO componente) {
-        super(componente);
+        this.componente = componente;
         soggetto.registraOsservatore(this);
     }
 
@@ -31,7 +30,7 @@ public final class UtenteDAOConCache extends UtenteDAODecorator implements Osser
     public Utente trovaPerId(int id) throws PersistenzaException {
         Utente utente = utentiPerId.get(id);
         if (utente == null) {
-            utente = super.trovaPerId(id);
+            utente = componente.trovaPerId(id);
             memorizza(utente);
         }
         return utente;
@@ -41,7 +40,7 @@ public final class UtenteDAOConCache extends UtenteDAODecorator implements Osser
     public Utente trovaPerNickname(String nickname) throws PersistenzaException {
         Utente utente = utentiPerNickname.get(nickname);
         if (utente == null) {
-            utente = super.trovaPerNickname(nickname);
+            utente = componente.trovaPerNickname(nickname);
             memorizza(utente);
         }
         return utente;

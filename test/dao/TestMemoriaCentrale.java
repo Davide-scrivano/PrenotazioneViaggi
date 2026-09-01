@@ -12,7 +12,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import dao.cache.MemoriaCentrale;
-import dao.decorator.PacchettoDAOConCache;
+import dao.cache.PacchettoDAOConCache;
 import exceptions.PersistenzaException;
 import model.valori.DettagliOfferta;
 import model.Pacchetto;

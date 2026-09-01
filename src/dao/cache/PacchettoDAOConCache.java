@@ -1,22 +1,21 @@
-package dao.decorator;
+package dao.cache;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import dao.PacchettoDAO;
-import dao.cache.MemoriaCentrale;
-import dao.cache.OsservatoreCache;
 import exceptions.PersistenzaException;
 import model.Pacchetto;
 
-public final class PacchettoDAOConCache extends PacchettoDAODecorator implements OsservatoreCache {
+public final class PacchettoDAOConCache implements PacchettoDAO, OsservatoreCache {
 
+    private final PacchettoDAO componente;
     private final MemoriaCentrale soggetto = MemoriaCentrale.getSingletonInstance();
 
     private List<Pacchetto> pacchetti = null;
 
     public PacchettoDAOConCache(PacchettoDAO componente) {
-        super(componente);
+        this.componente = componente;
         soggetto.registraOsservatore(this);
     }
 
@@ -28,7 +27,7 @@ public final class PacchettoDAOConCache extends PacchettoDAODecorator implements
     @Override
     public List<Pacchetto> trovaTutti() throws PersistenzaException {
         if (pacchetti == null) {
-            pacchetti = new ArrayList<>(super.trovaTutti());
+            pacchetti = new ArrayList<>(componente.trovaTutti());
         }
         return pacchetti;
     }
@@ -45,7 +44,7 @@ public final class PacchettoDAOConCache extends PacchettoDAODecorator implements
 
     @Override
     public void aggiorna(Pacchetto pacchetto) throws PersistenzaException {
-        super.aggiorna(pacchetto);
+        componente.aggiorna(pacchetto);
         soggetto.datiModificati();
     }
 }

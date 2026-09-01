@@ -7,13 +7,13 @@ import dao.PagamentoDAO;
 import dao.PartecipanteDAO;
 import dao.PrenotazioneDAO;
 import dao.UtenteDAO;
+import dao.cache.CatalogoDAOConCache;
 import dao.cache.MemoriaCentrale;
-import dao.decorator.CatalogoDAOConCache;
-import dao.decorator.PacchettoDAOConCache;
-import dao.decorator.PagamentoDAOConCache;
-import dao.decorator.PartecipanteDAOConCache;
-import dao.decorator.PrenotazioneDAOConCache;
-import dao.decorator.UtenteDAOConCache;
+import dao.cache.PacchettoDAOConCache;
+import dao.cache.PagamentoDAOConCache;
+import dao.cache.PartecipanteDAOConCache;
+import dao.cache.PrenotazioneDAOConCache;
+import dao.cache.UtenteDAOConCache;
 
 public class DAOFactoryDatabase extends DAOFactory {
 

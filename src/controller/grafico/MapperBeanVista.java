@@ -34,8 +34,8 @@ final class MapperBeanVista {
         PacchettoVistaBean bean = new PacchettoVistaBean();
         bean.setId(pacchetto.getId());
         bean.setDestinazione(pacchetto.getDestinazione());
-        bean.setDataPartenza(pacchetto.getDisponibilita().getDataPartenza());
-        bean.setDataRientro(pacchetto.getDisponibilita().getDataRientro());
+        bean.setDataPartenza(pacchetto.getDataPartenzaDisponibilita());
+        bean.setDataRientro(pacchetto.getDataRientroDisponibilita());
         bean.setEsaurito(pacchetto.isEsaurito());
         bean.setPrezzoSettimanale(pacchetto.getPrezzoSettimanale());
         bean.setPostiDisponibili(pacchetto.getPostiDisponibili());
@@ -71,8 +71,8 @@ final class MapperBeanVista {
         PrenotazioneVistaBean bean = new PrenotazioneVistaBean();
         bean.setId(prenotazione.getId());
         bean.setDestinazione(prenotazione.getDestinazione());
-        bean.setDataPartenzaViaggio(prenotazione.getPeriodo().getDataPartenza());
-        bean.setDataRientroViaggio(prenotazione.getPeriodo().getDataRientro());
+        bean.setDataPartenzaViaggio(prenotazione.getDataPartenzaViaggio());
+        bean.setDataRientroViaggio(prenotazione.getDataRientroViaggio());
         bean.setDataPrenotazione(prenotazione.getDataPrenotazione());
         bean.setDescrizionePagamento(prenotazione.getDescrizionePagamento());
         bean.setImportoTotale(prenotazione.getImportoTotale());

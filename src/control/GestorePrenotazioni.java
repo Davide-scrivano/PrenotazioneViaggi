@@ -49,7 +49,8 @@ public class GestorePrenotazioni {
         Catalogo catalogo = gestoreCatalogo.consultaCatalogo();
         Pacchetto pacchetto = catalogo.trovaPacchetto(idPacchetto);
         if (pacchetto == null) {
-            throw new PacchettoNonDisponibileException("Il pacchetto scelto non e' piu' disponibile a catalogo.");
+            throw new PacchettoNonDisponibileException("Il pacchetto scelto non e' piu' disponibile a catalogo.",
+                    PacchettoNonDisponibileException.Motivo.NON_A_CATALOGO);
         }
         return pacchetto;
     }

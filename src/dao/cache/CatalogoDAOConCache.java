@@ -1,19 +1,18 @@
-package dao.decorator;
+package dao.cache;
 
 import dao.CatalogoDAO;
-import dao.cache.MemoriaCentrale;
-import dao.cache.OsservatoreCache;
 import exceptions.PersistenzaException;
 import model.Catalogo;
 
-public final class CatalogoDAOConCache extends CatalogoDAODecorator implements OsservatoreCache {
+public final class CatalogoDAOConCache implements CatalogoDAO, OsservatoreCache {
 
+    private final CatalogoDAO componente;
     private final MemoriaCentrale soggetto = MemoriaCentrale.getSingletonInstance();
 
     private Catalogo catalogo = null;
 
     public CatalogoDAOConCache(CatalogoDAO componente) {
-        super(componente);
+        this.componente = componente;
         soggetto.registraOsservatore(this);
     }
 
@@ -25,7 +24,7 @@ public final class CatalogoDAOConCache extends CatalogoDAODecorator implements O
     @Override
     public Catalogo carica() throws PersistenzaException {
         if (catalogo == null) {
-            catalogo = super.carica();
+            catalogo = componente.carica();
         }
         return catalogo;
     }

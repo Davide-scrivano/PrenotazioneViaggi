@@ -83,8 +83,4 @@ public class PacchettoVistaBean {
     public void setEsaurito(boolean esaurito) {
         this.esaurito = esaurito;
     }
-
-    public boolean postiInsufficientiPer(int numeroPartecipanti) {
-        return numeroPartecipanti > postiDisponibili;
-    }
 }

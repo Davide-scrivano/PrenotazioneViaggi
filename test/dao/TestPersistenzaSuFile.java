@@ -105,7 +105,7 @@ class TestPersistenzaSuFile {
                 new Partecipante(partecipanteDAO.prossimoId(), "Anna", "Verdi", new DatiAnagrafici(12345L, "ABC")));
 
         PeriodoViaggio periodo = PeriodoViaggio.daPartenzaEDurata(
-                pacchetto.getDisponibilita().getDataPartenza(), DurataViaggio.UNA_SETTIMANA);
+                pacchetto.getDataPartenzaDisponibilita(), DurataViaggio.UNA_SETTIMANA);
         return cliente.prenota(prenotazioneDAO.prossimoId(), pacchetto, pagamento, periodo, partecipanti);
     }
 }
