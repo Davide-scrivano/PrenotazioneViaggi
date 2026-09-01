@@ -61,6 +61,6 @@ public class PagamentoDAODatabase implements PagamentoDAO {
     }
 
     private PersistenzaException errore(SQLException causa) {
-        return new PersistenzaException("Accesso ai pagamenti non riuscito: " + causa.getMessage(), causa);
+        return new PersistenzaException("Accesso ai pagamenti non riuscito.", causa);
     }
 }

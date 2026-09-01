@@ -36,7 +36,7 @@ public class PoolConnessioni {
             }
             return connessione;
         } catch (SQLException e) {
-            throw new PersistenzaException("Connessione al database non disponibile: " + e.getMessage(), e);
+            throw new PersistenzaException("Connessione al database non disponibile.", e);
         }
     }
 

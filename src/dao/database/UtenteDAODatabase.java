@@ -51,6 +51,6 @@ public class UtenteDAODatabase implements UtenteDAO {
     }
 
     private PersistenzaException errore(SQLException causa) {
-        return new PersistenzaException("Lettura degli utenti non riuscita: " + causa.getMessage(), causa);
+        return new PersistenzaException("Lettura degli utenti non riuscita.", causa);
     }
 }

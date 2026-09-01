@@ -70,6 +70,6 @@ public class PacchettoDAODatabase implements PacchettoDAO {
     }
 
     private PersistenzaException errore(SQLException causa) {
-        return new PersistenzaException("Accesso al catalogo non riuscito: " + causa.getMessage(), causa);
+        return new PersistenzaException("Accesso ai pacchetti non riuscito.", causa);
     }
 }

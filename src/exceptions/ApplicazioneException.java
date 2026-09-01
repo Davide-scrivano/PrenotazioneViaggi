@@ -1,6 +1,6 @@
 package exceptions;
 
-public class ApplicazioneException extends Exception {
+public abstract class ApplicazioneException extends Exception {
 
     private static final long serialVersionUID = 1L;
 

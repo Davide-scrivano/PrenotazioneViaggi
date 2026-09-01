@@ -30,7 +30,7 @@ public class CatalogoDAODatabase implements CatalogoDAO {
             }
             return new Catalogo(risultato.getInt("id"), risultato.getString("titolo"), pacchettoDAO.trovaTutti());
         } catch (SQLException e) {
-            throw new PersistenzaException("Accesso al catalogo non riuscito: " + e.getMessage(), e);
+            throw new PersistenzaException("Accesso al catalogo non riuscito.", e);
         }
     }
 }

@@ -72,6 +72,6 @@ public class PartecipanteDAODatabase implements PartecipanteDAO {
     }
 
     private PersistenzaException errore(SQLException causa) {
-        return new PersistenzaException("Accesso ai partecipanti non riuscito: " + causa.getMessage(), causa);
+        return new PersistenzaException("Accesso ai partecipanti non riuscito.", causa);
     }
 }

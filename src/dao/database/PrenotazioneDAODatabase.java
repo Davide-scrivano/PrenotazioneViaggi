@@ -122,7 +122,7 @@ public class PrenotazioneDAODatabase implements PrenotazioneDAO {
 
     private PersistenzaException annullaESegnala(Connection connessione, Exception causa) {
         PersistenzaException errore =
-                new PersistenzaException("Salvataggio della prenotazione non riuscito: " + causa.getMessage(), causa);
+                new PersistenzaException("Salvataggio della prenotazione non riuscito.", causa);
         try {
             connessione.rollback();
         } catch (SQLException e) {
@@ -140,6 +140,6 @@ public class PrenotazioneDAODatabase implements PrenotazioneDAO {
     }
 
     private PersistenzaException errore(SQLException causa) {
-        return new PersistenzaException("Accesso alle prenotazioni non riuscito: " + causa.getMessage(), causa);
+        return new PersistenzaException("Accesso alle prenotazioni non riuscito.", causa);
     }
 }
